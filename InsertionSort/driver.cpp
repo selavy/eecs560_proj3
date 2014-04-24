@@ -6,8 +6,8 @@ using namespace std;
 
 #define N 30
 
-struct cmp {
-  bool operator()() { return true; }
+struct Cmp {
+  bool operator()( int a, int b) const { return a < b; }
 };
 
 int main( int argc, char ** argv ) {
@@ -21,6 +21,10 @@ int main( int argc, char ** argv ) {
   cout << endl;
 
   InsertionSort::Sort( &arr[0], &arr[N] );
+  //
+  // To sort in ascending order:
+  // InsertionSort::Sort( &arr[0], &arr[N], GreaterThan() );
+  //
 
   for( int i = 0; i < N; ++i ) {
     cout << arr[i] << " ";

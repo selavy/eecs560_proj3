@@ -7,15 +7,22 @@
 #include <climits>
 
 namespace ColumnSort {
-  void Sort( int * In, int Row, int Col ) {
+  void Sort( int * In, int Col, int Row ) {
     using namespace std;
 
-    int A[3][9];
+    const int TotalLen = Col * Row;
+    int ShiftAmount = Row;
+    if( ShiftAmount & 1 ) { // want ceiling, so if odd, then add one
+      ShiftAmount++;
+    }
+    ShiftAmount /= 2;
+
+    int A[Col][Row];
     int rr = 0, cc = 0;
-    for( int i = 0; i < 27; ++i ) {
+    for( int i = 0; i < TotalLen; ++i ) {
       A[cc][rr] = In[i];
       rr++;
-      if( rr >= 9 ) {
+      if( rr >= Row ) {
 	rr = 0;
 	cc++;
       }
@@ -24,20 +31,20 @@ namespace ColumnSort {
     //
     // Sort columns
     //
-    for( int i = 0; i < 3; ++i ) {
-      sort( &A[i][0], &A[i][9] );
+    for( int i = 0; i < Col; ++i ) {
+      sort( &A[i][0], &A[i][Row] );
     }
 
     //
     // Transpose
     //
-    int B[3][9];
+    int B[Col][Row];
     int row = 0, col = 0;
-    for( int j = 0; j < 3; ++j ) {
-      for( int i = 0; i < 9; ++i ) {
+    for( int j = 0; j < Col; ++j ) {
+      for( int i = 0; i < Row; ++i ) {
 	B[row][col] = A[j][i];
 	++row;
-	if( row >= 3 ) {
+	if( row >= Col ) {
 	  row = 0;
 	++col;
 	}
@@ -47,19 +54,19 @@ namespace ColumnSort {
     //
     // Sort columns
     //
-    for( int i = 0; i < 3; ++i ) {
-      sort( &B[i][0], &B[i][9] );
+    for( int i = 0; i < Col; ++i ) {
+      sort( &B[i][0], &B[i][Row] );
     }
 
     //
     // Untranspose
     //
     row = 0; col = 0;
-    for( int i = 0; i < 9; ++i ) {
-      for( int j = 0; j < 3; ++j ) {
+    for( int i = 0; i < Row; ++i ) {
+      for( int j = 0; j < Col; ++j ) {
 	A[row][col] = B[j][i];
 	++col;
-	if( col >= 9 ) {
+	if( col >= Row ) {
 	  col = 0;
 	  ++row;
 	}
@@ -69,67 +76,72 @@ namespace ColumnSort {
     //
     // Sort columns
     //
-    for( int i = 0; i < 3; ++i ) {
-      sort( &A[i][0], &A[i][9] );
+    for( int i = 0; i < Col; ++i ) {
+      sort( &A[i][0], &A[i][Row] );
     }
 
-    int tmp[5];
-    for( int i = 0; i < 5; ++i ) {
+    int tmp[ShiftAmount];
+    for( int i = 0; i < ShiftAmount; ++i ) {
       tmp[i] = A[0][i];
     }
 
 
-    row = 5;
+    row = ShiftAmount;
     col = 0;
-    for( int j = 0; j < 3; ++j ) {
-      for( int i = 0; i < 9; ++i ) {
+    for( int j = 0; j < Col; ++j ) {
+      for( int i = 0; i < Row; ++i ) {
 	B[j][i] = A[col][row];
 	row++;
-	if( row >= 9 ) {
+	if( row >= Row ) {
 	  row = 0;
 	  col++;
 	}
-	if( col >= 3 ) {
+	if( col >= Col ) {
 	  break;
 	}
       }
     }
 
 
-    for( int i = 4; i < 9; ++i ) {
-      B[2][i] = INT_MAX;
+    const int FinalColumn = Col - 1;
+    int FinalColumnShiftAmount = ShiftAmount;
+    if( Row & 1 ) {
+      --FinalColumnShiftAmount;
+    }
+    for( int i = FinalColumnShiftAmount; i < Row; ++i ) {
+      B[FinalColumn][i] = INT_MAX;
     }
 
     //
     // Sort columns
     //
-    for( int i = 0; i < 3; ++i ) {
-      sort( &B[i][0], &B[i][9] );
+    for( int i = 0; i < Col; ++i ) {
+      sort( &B[i][0], &B[i][Row] );
     }
 
-    for( int i = 0; i < 5; ++i ) {
+    for( int i = 0; i < ShiftAmount; ++i ) {
       A[0][i] = tmp[i];
     }
 
-    row = 5;
+    row = ShiftAmount;
     col = 0;
-    for( int j = 0; j < 3; ++j ) {
-      for( int i = 0; i < 9; ++i ) {
+    for( int j = 0; j < Col; ++j ) {
+      for( int i = 0; i < Row; ++i ) {
 	A[col][row] = B[j][i];
 	row++;
-	if( row >= 9 ) {
+	if( row >= Row ) {
 	  row = 0;
 	  col++; 
 	}
-	if( col >= 3 ) {
+	if( col >= Col ) {
 	  break;
 	}
       }
     }
 
 
-    for( int i = 0; i < 9; ++i ) {
-      for( int j = 0; j < 3; ++j ) {
+    for( int i = 0; i < Row; ++i ) {
+      for( int j = 0; j < Col; ++j ) {
   	cout << A[j][i] << ", ";
       }
       cout << endl;

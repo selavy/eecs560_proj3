@@ -4,14 +4,13 @@
 
 using namespace std;
 
-#define N 30
+#define N 90
 
 struct Cmp {
   bool operator()( int a, int b) const { return a < b; }
 };
 
 int main( int argc, char ** argv ) {
-  /*
   srand(1);
   int arr[N];
   
@@ -20,13 +19,8 @@ int main( int argc, char ** argv ) {
     cout << arr[i] << " ";
   }
   cout << endl;
-  */
 
-  int arr[27] = { 14, 3, 21, 24, 8, 26, 19, 10, 2,
-		  25, 1, 12, 23, 13, 4, 17, 15, 20,
-		  9, 27, 7, 16, 18, 5, 22, 11, 6 };
-
-  ColumnSort::Sort( arr, 3, 9 );
+  ColumnSort::Sort( arr, 3, N / 3 );
 
   return 0;
 }

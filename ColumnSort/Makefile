@@ -1,5 +1,5 @@
-CC = g++
-CFLAGS = -std=c++11
+CC = clang++
+CFLAGS = -std=c++11 -g
 
 driver: driver.cpp ColumnSort.hpp
 	$(CC) $(CFLAGS) -o driver driver.cpp

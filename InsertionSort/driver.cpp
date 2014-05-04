@@ -1,5 +1,7 @@
 #include <iostream>
 #include <cstdlib>
+#include <vector>
+#include <algorithm>
 #include "InsertionSort.hpp"
 
 using namespace std;
@@ -13,9 +15,12 @@ struct Cmp {
 int main( int argc, char ** argv ) {
   srand(1);
   int arr[N];
+  vector<int> data( N );
   
   for( int i = 0; i < N; ++i ) {
-    arr[i] = rand() % (10*N);
+    const int r = rand()  % (10*N);
+    arr[i] = r;
+    data[i] = r;
     //    cout << arr[i] << " ";
   }
   //  cout << endl;
@@ -25,10 +30,15 @@ int main( int argc, char ** argv ) {
   // To sort in ascending order:
   // InsertionSort::Sort( &arr[0], &arr[N], GreaterThan() );
   //
+  
+  sort( data.begin(), data.end() );
 
-  //for( int i = 0; i < N; ++i ) {
-  //  cout << arr[i] << " ";
-  //}
+  for( int i = 0; i < N; ++i ) {
+    //cout << arr[i] << " ";
+    if( data[i] != arr[i] ) {
+     cout << "Error " << data[i] << " != " << arr[i] << endl;
+    }
+  }
   //cout << endl;
   return 0;
 }

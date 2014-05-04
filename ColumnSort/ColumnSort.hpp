@@ -12,6 +12,7 @@
 #include <chrono>
 #include <chrono>
 #include <utility>
+#include "../InsertionSort/InsertionSort.hpp"
 
 namespace ColumnSort {
   //  template<long Col>
@@ -54,7 +55,8 @@ namespace ColumnSort {
     // Sort columns
     //
     for( long i = 0; i < Col; ++i ) {
-      sort( &A[i][0], &A[i][Row] );
+      //      sort( &A[i][0], &A[i][Row] );
+      InsertionSort::Sort( &A[i][0], &A[i][Row] );
     }
     
 #ifdef DEBUG
@@ -108,7 +110,8 @@ namespace ColumnSort {
     // Sort columns
     //
     for( long i = 0; i < Col; ++i ) {
-      sort( &B[i][0], &B[i][Row] );
+      //sort( &B[i][0], &B[i][Row] );
+      InsertionSort::Sort( &B[i][0], &B[i][Row] );
     }
 
 #ifdef DEBUG
@@ -156,7 +159,8 @@ namespace ColumnSort {
     // Sort columns
     //
     for( long i = 0; i < Col; ++i ) {
-      sort( &A[i][0], &A[i][Row] );
+      //      sort( &A[i][0], &A[i][Row] );
+      InsertionSort::Sort( &A[i][0], &A[i][Row] );
     }
 
 #ifdef DEBUG
@@ -177,7 +181,8 @@ namespace ColumnSort {
       tmp[i] = A[0][i];
     }
 
-    sort( &tmp[0], &tmp[ShiftAmount] );
+    //    sort( &tmp[0], &tmp[ShiftAmount] );
+    InsertionSort::Sort( &tmp[0], &tmp[ShiftAmount] );
 
     row = ShiftAmount;
     col = 0;
@@ -221,7 +226,8 @@ namespace ColumnSort {
     // Sort columns
     //
     for( long i = 0; i < Col; ++i ) {
-      sort( &B[i][0], &B[i][Row] );
+      //      sort( &B[i][0], &B[i][Row] );
+      InsertionSort::Sort( &B[i][0], &B[i][Row] );
     }
 
 #ifdef DEBUG

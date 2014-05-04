@@ -22,7 +22,7 @@ namespace InsertionSort {
     T* j;
     for( T* p = begin; p < end; ++p ) {
       T tmp = *p;
-      for( j = p; ( j > ( begin + 1 ) ) && Comp( tmp, *(j - 1) ); --j ) {
+      for( j = p; ( j > ( begin ) ) && Comp( tmp, *(j - 1) ); --j ) {
 	*j = *(j-1);
       }
       *j = tmp;

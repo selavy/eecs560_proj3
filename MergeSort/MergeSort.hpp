@@ -2,11 +2,16 @@
 #include <iostream>
 #include <stack>
 #include <algorithm>
+#include <chrono>
+#include <ratio>
+#include <utility>
 
 namespace MergeSort {
   void Merge( int *& A, int *& TmpArray, int leftPos, int rightPos, int rightEnd );
 
-  void Sort( int *& A, int left, int right ) {
+  std::chrono::duration<double> Sort( int *& A, int left, int right ) {
+    using namespace std::chrono;
+    high_resolution_clock::time_point t1 = high_resolution_clock::now();
     int m = 1;
     int * tmp = new int[right - left];
     while( m < right ) {
@@ -21,8 +26,10 @@ namespace MergeSort {
       }
       m = m * 2;
     }
-
+    high_resolution_clock::time_point t2 = high_resolution_clock::now();
+    duration<double> time_span = duration_cast<duration<double> >( t2 - t1 );
     delete[] tmp;
+    return std::move( time_span );
   }
 
   void Merge( int *& A, int *& TmpArray, int leftPos, int rightPos, int rightEnd ) {

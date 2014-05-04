@@ -28,7 +28,7 @@ int main( int argc, char ** argv ) {
   int arr[] = { 14, 3, 21, 24, 8, 26, 19, 10, 2, 25, 1, 12, 23, 13, 4, 17, 15, 20, 9, 27, 7, 16, 18, 5, 22, 11, 6  };
 #endif
 
-  ColumnSort::Sort( arr, 10, N );
+  ColumnSort::Sort( arr, 5, N );
 
 #ifdef RR
     for( int i = 0; i < N; ++i ) {
@@ -36,12 +36,12 @@ int main( int argc, char ** argv ) {
      cerr << "ERROR: " << arr[i] << " != " << vec[i] << endl;
    }
   }
+  delete[] arr;
 #else
   for_each( &arr[0], &arr[N], [](int i) { cout << i << " "; } );
   cout << endl;
 #endif
 
-  delete[] arr;
   return 0;
 }
 

@@ -12,7 +12,8 @@
 #include <chrono>
 #include <chrono>
 #include <utility>
-#include "../InsertionSort/InsertionSort.hpp"
+//#include "../InsertionSort/InsertionSort.hpp"
+#include "../MergeSort/MergeSort.hpp"
 
 namespace ColumnSort {
   //  template<long Col>
@@ -56,7 +57,8 @@ namespace ColumnSort {
     //
     for( long i = 0; i < Col; ++i ) {
       //      sort( &A[i][0], &A[i][Row] );
-      InsertionSort::Sort( &A[i][0], &A[i][Row] );
+      //      MergeSort::Sort( &A[i][0], &A[i][Row] );
+      MergeSort::Sort( A[i], 0, Row );
     }
     
 #ifdef DEBUG
@@ -111,7 +113,8 @@ namespace ColumnSort {
     //
     for( long i = 0; i < Col; ++i ) {
       //sort( &B[i][0], &B[i][Row] );
-      InsertionSort::Sort( &B[i][0], &B[i][Row] );
+      //      MergeSort::Sort( &B[i][0], &B[i][Row] );
+      MergeSort::Sort( B[i], 0, Row );
     }
 
 #ifdef DEBUG
@@ -160,7 +163,8 @@ namespace ColumnSort {
     //
     for( long i = 0; i < Col; ++i ) {
       //      sort( &A[i][0], &A[i][Row] );
-      InsertionSort::Sort( &A[i][0], &A[i][Row] );
+      //      MergeSort::Sort( &A[i][0], &A[i][Row] );
+      MergeSort::Sort( A[i], 0, Row );
     }
 
 #ifdef DEBUG
@@ -176,13 +180,14 @@ namespace ColumnSort {
     // END PRINT
 #endif
 
-    int tmp[ShiftAmount];
+    int * tmp = new int[ShiftAmount];
     for( long i = 0; i < ShiftAmount; ++i ) {
       tmp[i] = A[0][i];
     }
 
     //    sort( &tmp[0], &tmp[ShiftAmount] );
-    InsertionSort::Sort( &tmp[0], &tmp[ShiftAmount] );
+    //    MergeSort::Sort( &tmp[0], &tmp[ShiftAmount] );
+    MergeSort::Sort( tmp, 0, ShiftAmount );
 
     row = ShiftAmount;
     col = 0;
@@ -227,7 +232,8 @@ namespace ColumnSort {
     //
     for( long i = 0; i < Col; ++i ) {
       //      sort( &B[i][0], &B[i][Row] );
-      InsertionSort::Sort( &B[i][0], &B[i][Row] );
+      //      MergeSort::Sort( &B[i][0], &B[i][Row] );
+      MergeSort::Sort( B[i], 0, Row );
     }
 
 #ifdef DEBUG
@@ -293,6 +299,7 @@ namespace ColumnSort {
 
     delete[] A;
     delete[] B;
+    delete[] tmp;
 
     return std::move( time_span );
 

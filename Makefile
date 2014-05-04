@@ -1,7 +1,7 @@
 CC = g++
 CFLAGS = -std=c++11 -Ofast
 
-//OBJS = SpeedTestAuxSorts.o
+#OBJS = SpeedTestAuxSorts.o
 OBJS = ColumnSortTest.o
 
 SpeedTestAuxSorts: $(OBJS)
@@ -12,4 +12,4 @@ ColumnSortTest.o: ColumnSortTest.cpp
 	$(CC) $(CFLAGS) -c ColumnSortTest.cpp
 .PHONY:clean
 clean:
-	rm -rf $(OBJS) SpeedTestAuxSorts
+	rm -rf $(OBJS) *.o SpeedTestAuxSorts

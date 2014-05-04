@@ -9,17 +9,22 @@
 #include <cstring>
 #include <climits>
 #include <cassert>
+#include <chrono>
+#include <chrono>
+#include <utility>
 
 namespace ColumnSort {
-  template<long Col>
-  void Sort( int * In, long N ) {
+  //  template<long Col>
+  std::chrono::duration<double> Sort( int * In, long Col, long N ) {
     using namespace std;
+    using namespace std::chrono;
     assert( Col > 0 );
-
     //
     // Check that N is divisible by Col
     //
     assert( (N % Col) == 0 );
+
+    high_resolution_clock::time_point t1 = high_resolution_clock::now();
 
     const long Row = N / Col;
     const long TotalLen = Col * Row;
@@ -265,6 +270,9 @@ namespace ColumnSort {
 #endif
     //
 
+    high_resolution_clock::time_point t2 = high_resolution_clock::now();
+    duration<double> time_span = duration_cast<duration<double> >( t2 - t1 );
+
 
     for( long j = 0, t = 0; j < Col; ++j ) {
       for( long i = 0; i < Row; ++t, ++i ) {
@@ -279,6 +287,8 @@ namespace ColumnSort {
 
     delete[] A;
     delete[] B;
+
+    return std::move( time_span );
 
   } //:~)) end Sort()
 

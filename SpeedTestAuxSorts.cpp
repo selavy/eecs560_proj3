@@ -4,8 +4,8 @@
 #include <algorithm>
 #include <chrono>
 #include <ratio>
-//#include "InsertionSort/InsertionSort.hpp"
-#include "MergeSort/MergeSort.hpp"
+#include "InsertionSort/InsertionSort.hpp"
+//#include "MergeSort/MergeSort.hpp"
 
 #define RAND_NUM ( (rand() % (4*n)) - (2*n) )
 #define NUM_TESTS 10
@@ -20,8 +20,8 @@ int main( int argc, char ** argv ) {
     for( int i = 0; i < NUM_TESTS; ++i ) {
       cout << "n = " << n << ", ";
       generate( &data[0], &data[n], [&]() { return RAND_NUM; } );
-      //      cout << InsertionSort::Sort( &data[0], &data[n] ).count() << endl;
-      cout << MergeSort::Sort( data, 0, n ).count() << endl;
+            cout << InsertionSort::Sort( &data[0], &data[n] ).count() << endl;
+      //cout << MergeSort::Sort( data, 0, n ).count() << endl;
     }
     delete[] data;
   }
